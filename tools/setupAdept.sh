@@ -12,22 +12,19 @@ GIT_LAUNCH=$GIT/LAUNCH.git
 
 echo 'Creating workspace folder at: ' $WORKSPACE 
 mkdir -p $SOURCE
-
 cd $SOURCE
-echo 'Downloading repository: ' $GIT_ADEPT
-git clone $GIT_ADEPT
 
 echo 'Downloading repository: ' $GIT_LOCALIZATION
-#git clone $GIT_LOCALIZATION
+git clone $GIT_LOCALIZATION
 
 echo 'Downloading repository: ' $GIT_PERCEPTION
-#git clone $GIT_PERCEPTION
+git clone $GIT_PERCEPTION
 
 echo 'Downloading repository: ' $GIT_MOTIONPLANNING
-#git clone $GIT_MOTIONPLANNING
+git clone $GIT_MOTIONPLANNING
 
 echo 'Downloading repository: ' $GIT_CONTROL
-#git clone $GIT_CONTROL
+git clone $GIT_CONTROL
 
 echo 'Building...'
 cd $WORKSPACE
