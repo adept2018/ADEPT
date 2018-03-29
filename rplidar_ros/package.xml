@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>rplidar</name>
+  <name>rplidar_ros</name>
   <version>1.5.7</version>
   <description>The rplidar ros package, support rplidar A2/A1 </description>
 
