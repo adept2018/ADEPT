@@ -3,10 +3,9 @@
 // 2D rotation matrix R(theta) = [cos(theta) -sin(theta)]
 //                               [sin(theta) cos(theta)]
 
-pcl::PointCloud<pcl::PointXY> LaserScanToPointCloud::scanToCloud(const sensor_msgs::LaserScan &scan, const geometry_msgs::PoseWithCovariance &pose) {
-
+pcl::PointCloud<pcl::PointXY> LaserScanToPointCloud::scanToCloud(const sensor_msgs::LaserScan &scan, const geometry_msgs::Pose &pose) {
     pcl::PointXY point;
-    pcl::PointCloud cloud;
+    pcl::PointCloud<pcl::PointXY> cloud;
 
     for (int i = 0; i < scan.ranges.size(); i++) {
 
