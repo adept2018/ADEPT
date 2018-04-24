@@ -1,0 +1,26 @@
+<package format="2">
+  <name>remote_control</name>
+  <version>1.2.4</version>
+  <description>
+    This package provides remote_control capability.
+  </description>
+  <maintainer email="viktor.aberg@afconsult.com">Viktor Aberg</maintainer>
+  <license>BSD</license>
+
+  <url>http://ros.org/wiki/foo_core</url>
+  <author>Ivana Bildbotz</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+
+  <build_depend>message_generation</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>rospy</exec_depend>
+
+  <test_depend>python-mock</test_depend>
+
+  <doc_depend>doxygen</doc_depend>
+</package>
