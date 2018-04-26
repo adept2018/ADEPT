@@ -1,4 +1,4 @@
-#include "remote_control/forward.h"
+#include "forward.h"
 
 forward::forward(void): carstate()
 {
@@ -7,7 +7,7 @@ forward::forward(void): carstate()
 
 std::string forward::run(void)
 {
-    return "forward";
+    return "break";
 }
 
 forward::~forward(void)

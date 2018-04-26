@@ -10,80 +10,22 @@
 #include <string>
 #include <map>
 
-
 /*
 
+To run.
 
-#include "remote_control/carstate.h"
-#include "remote_control/forward.h"
-*/
-class carstate
-{
-protected:
-	static double speed;
-	static double angle;
-	// static std:vector<Vector2D> path;
-
-public:
-	carstate(void);
-
-	virtual std::string run(void) = 0;
-
-	// void Target(Vector2D vector);
-
-	virtual ~carstate(void);
-};
-
-class forward: public carstate
-{
-
-protected:
-
-public:
-	forward(void);
-
-	std::string run(void);
-
-	~forward(void);
-};
-
-carstate::carstate(void)
-{
-
-}
-
-carstate::~carstate(void)
-{
-	std::cout << "delete carstate\n";
-}
-
-double carstate::speed = 0;
-double carstate::angle = 0;
-
-forward::forward(void): carstate()
-{
-
-}
-
-std::string forward::run(void)
-{
-	return "har kört";
-}
-
-forward::~forward(void)
-{
-	std::cout << "delete forward\n";
-}
-
-
-
-/*
-
-How to start it.
 roslaunch vesc_driver vesc_driver_node.launch
-roslaunch vesc_driver remote_control.launch
+rosrun remote_control talker
 
 */
+
+// TODO: Få klasserna i olika filer att fungera!
+
+// #include "../include/carstate.h"
+// #include "../include/forward.h"
+#include "carstate.h"
+#include "forward.h"
+
 
 int main(int argc, char **argv)
 {
@@ -119,7 +61,7 @@ int main(int argc, char **argv)
     
     while (ros::ok())
     {
-        // state = stateMachine[state]->run();
+        state = stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
 
@@ -132,6 +74,8 @@ int main(int argc, char **argv)
 
         loop_rate.sleep();
         ++count;*/
+        if(state == "break")
+            break;
     }
 
 
