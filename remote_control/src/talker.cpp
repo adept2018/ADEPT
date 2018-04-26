@@ -25,10 +25,13 @@ rosrun remote_control talker
 // #include "../include/forward.h"
 #include "carstate.h"
 #include "forward.h"
+#include "backward.h"
 #include "left.h"
 #include "right.h"
 #include "leftforward.h"
 #include "rightforward.h"
+#include "leftbackward.h"
+#include "rightbackward.h"
 
 
 int main(int argc, char **argv)
@@ -60,6 +63,9 @@ int main(int argc, char **argv)
 	stateMachine["right"] = new right();
 	stateMachine["leftforward"] = new leftforward();
 	stateMachine["rightforward"] = new rightforward();
+	stateMachine["backward"] = new backward();
+    stateMachine["leftbackward"] = new leftbackward();
+	stateMachine["rightbackward"] = new rightbackward();
     
 	state = stateMachine[state]->run();
 
@@ -84,12 +90,22 @@ int main(int argc, char **argv)
             break;
     }
     
+    /*
+    
+    The car use an old verison...
+    
     for(const auto &i : stateMachine)
     {
         delete stateMachine[i.first];
         //stateMachine[i.first] = NULL;
-    }
-
-
-    return 0;
+    }*/
+    
+    delete stateMachine["forward"];
+    delete stateMachine["left"];
+    delete stateMachine["right"];
+    delete stateMachine["leftforward"];
+    delete stateMachine["rightforward"]; 
+    delete stateMachine["backward"];
+    delete stateMachine["leftbackward"];
+    delete stateMachine["rightbackward"];
 }

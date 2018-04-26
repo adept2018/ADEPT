@@ -2,15 +2,15 @@
 
 #pragma once
 
-class right: public carstate
+class leftbackward: public carstate
 {
  
 protected:
 
 public: 
-    right(void);
+    leftbackward(void);
     
     std::string run(void);
     
-    ~right(void);
+    ~leftbackward(void);
 };

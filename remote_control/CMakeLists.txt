@@ -13,7 +13,19 @@ catkin_package()
 ## Build talker and listener
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(talker src/talker.cpp src/carstate.cpp src/forward.cpp src/right.cpp src/left.cpp)
+add_executable(talker src/talker.cpp 
+					  src/carstate.cpp 
+					  src/forward.cpp 
+					  src/left.cpp 
+					  src/right.cpp 
+					  src/leftforward.cpp 
+					  src/rightforward.cpp 
+					  src/backward.cpp 
+					  src/left.cpp
+					  src/right.cpp 
+					  src/leftbackward.cpp
+					  src/rightbackward.cpp 
+					  )
 target_link_libraries(talker ${catkin_LIBRARIES})
 add_dependencies(talker beginner_tutorials_generate_messages_cpp)
 
