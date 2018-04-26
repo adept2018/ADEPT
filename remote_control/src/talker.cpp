@@ -25,6 +25,10 @@ rosrun remote_control talker
 // #include "../include/forward.h"
 #include "carstate.h"
 #include "forward.h"
+#include "left.h"
+#include "right.h"
+#include "leftforward.h"
+#include "rightforward.h"
 
 
 int main(int argc, char **argv)
@@ -52,12 +56,14 @@ int main(int argc, char **argv)
     std::map<std::string, carstate*> stateMachine;
     
 	stateMachine["forward"] = new forward();
+	stateMachine["left"] = new left();
+	stateMachine["right"] = new right();
+	stateMachine["leftforward"] = new leftforward();
+	stateMachine["rightforward"] = new rightforward();
     
 	state = stateMachine[state]->run();
 
 	// std::cout << "state = " << state << std::endl;
-
-	delete stateMachine["forward"];
     
     while (ros::ok())
     {
@@ -76,6 +82,12 @@ int main(int argc, char **argv)
         ++count;*/
         if(state == "break")
             break;
+    }
+    
+    for(const auto &i : stateMachine)
+    {
+        delete stateMachine[i.first];
+        //stateMachine[i.first] = NULL;
     }
 
 
