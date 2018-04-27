@@ -26,7 +26,3 @@ git clone $GIT_MOTIONPLANNING
 echo 'Downloading repository: ' $GIT_CONTROL
 git clone $GIT_CONTROL
 
-echo 'Building...'
-cd $WORKSPACE
-catkin_make
-
