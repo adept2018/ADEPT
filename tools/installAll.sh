@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo 'Upgrading Ubuntu'
+sudo apt upgrade
+
 WORKSPACE=~/ADEPT_ws
 
 echo 'Installing ROS..'
@@ -24,6 +27,7 @@ cd $DIR
 echo 'Building ros nodes..'
 cd $WORKSPACE
 rosdep install --from-paths src --ignore-src -r -y
+rosdep update
 catkin_make
 source devel/setup.bash
 
