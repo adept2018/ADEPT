@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo 'Upgrading Ubuntu'
-sudo apt upgrade
+sudo apt upgrade #TODO: test to run "sudo c_rehash /etc/ssl/certs" instead 
 
 WORKSPACE=~/ADEPT_ws
 
@@ -29,6 +29,7 @@ cd $WORKSPACE
 rosdep install --from-paths src --ignore-src -r -y
 rosdep update
 catkin_make
+echo "source ~/ADEPT_ws/devel/setup.bash" >> ~/.bashrc
 source devel/setup.bash
 
 
