@@ -1,13 +1,13 @@
 #include "right.h"
 
-right::right(void): carstate()
+right::right(ros::NodeHandle *n): carstate(n)
 {
     
 }
 
-std::string right::run(void)
+void right::run(void)
 {
-    return "break";
+    
 }
 
 right::~right(void)

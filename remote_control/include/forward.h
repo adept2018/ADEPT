@@ -1,3 +1,5 @@
+#include "ros/ros.h"
+#include "std_msgs/Float64.h"
 #include "carstate.h"
 
 #pragma once
@@ -8,9 +10,9 @@ class forward: public carstate
 protected:
 
 public: 
-    forward(void);
+    forward(ros::NodeHandle *n);
     
-    std::string run(void);
+    void run(void);
     
     ~forward(void);
 };

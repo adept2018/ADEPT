@@ -8,9 +8,9 @@ class leftbackward: public carstate
 protected:
 
 public: 
-    leftbackward(void);
+    leftbackward(ros::NodeHandle *n);
     
-    std::string run(void);
+    void run(void);
     
     ~leftbackward(void);
 };
