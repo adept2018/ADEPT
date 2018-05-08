@@ -8,6 +8,9 @@
 class carstate
 {
 protected:
+
+    const float steeringGain   = -1.2135;
+    const float steeringOffset = 0.4;
     
     // MAYBE: make thise singleton... (probaly not)
     ros::Publisher _duty_cycle_pub;
@@ -19,8 +22,8 @@ public:
     
     virtual void run(void) = 0;
     
-    void SetWheel(double angle);
-    void SetSpeed(double speed);
+    void SetWheel(float angle);
+    void SetSpeed(float speed);
     
     virtual ~carstate(void);
 };

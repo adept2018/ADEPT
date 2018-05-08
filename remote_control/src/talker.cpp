@@ -89,7 +89,7 @@ int main(int argc, char **argv)
     int count = 0;
     std_msgs::Float64 msg;
     
-    std::string state;
+    std::string state = "forward";
     
     std::map<std::string, carstate*> stateMachine;
     
@@ -107,12 +107,9 @@ int main(int argc, char **argv)
     while (ros::ok())
     {
 
-    std_msgs::Float64 msg;
-    msg.data = static_cast<float>(0.1);
-    duty_cycle_pub.publish(msg);
        // state = GetState("http://10.40.232.67:8080/getstate");
         
-       // stateMachine[state]->run();
+       stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
 

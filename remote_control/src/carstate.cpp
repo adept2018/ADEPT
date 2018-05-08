@@ -7,19 +7,19 @@ carstate::carstate(ros::NodeHandle *n)
     _servo_pub = n->advertise<std_msgs::Float64>("commands/servo/position", 1000);
 }
 
-
-void carstate::SetWheel(double angle)
+void carstate::SetWheel(float angle)
 {
+    float servoValue = angle * steeringGain + steeringOffset;
     std_msgs::Float64 msg;
-    msg.data = static_cast<float>(angle);
+    msg.data = servoValue;
     _servo_pub.publish(msg);
     
 }
 
-void carstate::SetSpeed(double speed)
+void carstate::SetSpeed(float speed)
 {
     std_msgs::Float64 msg;
-    msg.data = static_cast<float>(speed);
+    msg.data = speed;
     _duty_cycle_pub.publish(msg);
     
 }
