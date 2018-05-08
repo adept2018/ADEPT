@@ -8,15 +8,19 @@ carstate::carstate(ros::NodeHandle *n)
 }
 
 
-void SetWheel(double angle)
+void carstate::SetWheel(double angle)
 {
-    // TODO: implement!!!
+    std_msgs::Float64 msg;
+    msg.data = static_cast<float>(angle);
+    _servo_pub.publish(msg);
+    
 }
 
-void SetSpeed(double speed)
+void carstate::SetSpeed(double speed)
 {
-    
-    // TODO: implement!!!
+    std_msgs::Float64 msg;
+    msg.data = static_cast<float>(speed);
+    _duty_cycle_pub.publish(msg);
     
 }
 

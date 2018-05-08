@@ -106,9 +106,13 @@ int main(int argc, char **argv)
     
     while (ros::ok())
     {
-        state = GetState("http://10.40.232.67:8080/getstate");
+
+    std_msgs::Float64 msg;
+    msg.data = static_cast<float>(0.1);
+    duty_cycle_pub.publish(msg);
+       // state = GetState("http://10.40.232.67:8080/getstate");
         
-        stateMachine[state]->run();
+       // stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
 
