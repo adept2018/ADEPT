@@ -1,13 +1,13 @@
 #include "rightforward.h"
 
-rightforward::rightforward(void): carstate()
+rightforward::rightforward(ros::NodeHandle *n): carstate(n)
 {
     
 }
 
-std::string rightforward::run(void)
+void rightforward::run(void)
 {
-    return "break";
+    
 }
 
 rightforward::~rightforward(void)

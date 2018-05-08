@@ -1,13 +1,13 @@
 #include "leftbackward.h"
 
-leftbackward::leftbackward(void): carstate()
+leftbackward::leftbackward(ros::NodeHandle *n): carstate(n)
 {
     
 }
 
-std::string leftbackward::run(void)
+void leftbackward::run(void)
 {
-    return "break";
+    
 }
 
 leftbackward::~leftbackward(void)

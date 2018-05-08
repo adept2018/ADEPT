@@ -7,6 +7,10 @@
 #include <vector>
 #include <map>
 
+#include <unistd.h>
+#include <ctime>
+#include <curl/curl.h>
+
 /*
 
 To run.
@@ -26,6 +30,44 @@ rosrun remote_control talker
 #include "leftbackward.h"
 #include "rightbackward.h"
 
+size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
+    data->append((char*) ptr, size * nmemb);
+    return size * nmemb;
+}
+
+std::string GetState(std::string serverURL)
+{
+    CURL *curl = curl_easy_init();
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, serverURL);
+        // curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+        // curl_easy_setopt(curl, CURLOPT_USERPWD, "user:pass");
+        // curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
+        // curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
+        // curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
+        
+        std::string response_string;
+        std::string header_string;
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_string);
+        curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header_string);
+        
+        char* url;
+        long response_code;
+        double elapsed;
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+        curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &elapsed);
+        curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &url);
+        
+        curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        curl = NULL;
+        
+        return response_string;
+    }
+    else
+        return NULL;
+}
 
 int main(int argc, char **argv)
 {
@@ -47,26 +89,26 @@ int main(int argc, char **argv)
     int count = 0;
     std_msgs::Float64 msg;
     
-    std::string state = "forward";
+    std::string state;
     
     std::map<std::string, carstate*> stateMachine;
     
-	stateMachine["forward"] = new forward();
-	stateMachine["left"] = new left();
-	stateMachine["right"] = new right();
-	stateMachine["leftforward"] = new leftforward();
-	stateMachine["rightforward"] = new rightforward();
-	stateMachine["backward"] = new backward();
-    stateMachine["leftbackward"] = new leftbackward();
-	stateMachine["rightbackward"] = new rightbackward();
+	stateMachine["forward"] = new forward(&n);
+	stateMachine["left"] = new left(&n);
+	stateMachine["right"] = new right(&n);
+	stateMachine["leftforward"] = new leftforward(&n);
+	stateMachine["rightforward"] = new rightforward(&n);
+	stateMachine["backward"] = new backward(&n);
+    stateMachine["leftbackward"] = new leftbackward(&n);
+	stateMachine["rightbackward"] = new rightbackward(&n);
     
-	state = stateMachine[state]->run();
-
 	// std::cout << "state = " << state << std::endl;
     
     while (ros::ok())
     {
-        state = stateMachine[state]->run();
+        state = GetState("http://10.40.232.67:8080/getstate");
+        
+        stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
 

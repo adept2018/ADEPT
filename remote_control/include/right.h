@@ -8,9 +8,9 @@ class right: public carstate
 protected:
 
 public: 
-    right(void);
+    right(ros::NodeHandle *n);
     
-    std::string run(void);
+    void run(void);
     
     ~right(void);
 };

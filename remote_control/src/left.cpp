@@ -1,13 +1,13 @@
 #include "left.h"
 
-left::left(void): carstate()
+left::left(ros::NodeHandle *n): carstate(n)
 {
     
 }
 
-std::string left::run(void)
+void left::run(void)
 {
-    return "break";
+    
 }
 
 left::~left(void)

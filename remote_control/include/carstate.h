@@ -1,21 +1,26 @@
 #include <vector>
 #include <string>
+#include "ros/ros.h"
+#include "std_msgs/Float64.h"
 
 #pragma once
 
 class carstate
 {
 protected:
-    static double speed;
-    static double angle;
-    // static std:vector<Vector2D> path;
+    
+    // MAYBE: make thise singleton... (probaly not)
+    ros::Publisher _duty_cycle_pub;
+    ros::Publisher _servo_pub;
+    ros::NodeHandle *_n;
     
 public:
-    carstate(void);
+    carstate(ros::NodeHandle *n);
     
-    virtual std::string run(void) = 0;
+    virtual void run(void) = 0;
     
-    // void Target(Vector2D vector);
+    void SetWheel(double angle);
+    void SetSpeed(double speed);
     
     virtual ~carstate(void);
 };
