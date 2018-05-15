@@ -18,6 +18,7 @@ void carstate::SetWheel(float angle)
 
 void carstate::SetSpeed(float speed)
 {
+    // std::cout << "SetSpeed()\n";
     std_msgs::Float64 msg;
     msg.data = speed;
     _duty_cycle_pub.publish(msg);

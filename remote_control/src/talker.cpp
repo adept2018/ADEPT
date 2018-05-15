@@ -35,34 +35,67 @@ size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
     return size * nmemb;
 }
 
-std::string GetState(std::string serverURL)
+std::string GetState(char *serverURL)
 {
     CURL *curl = curl_easy_init();
+    // std::cout << "curl = " << curl << std::endl;
+    char errors[1024];
+    int ret;
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, serverURL);
+        ret = curl_easy_setopt(curl, CURLOPT_URL, serverURL);
+        if(ret!=0)
+            std::cout << "ret = " << ret << std::endl;
         // curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
         // curl_easy_setopt(curl, CURLOPT_USERPWD, "user:pass");
         // curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
         // curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
         // curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
         
+        // char response_string[1024000];
+        // char header_string[1024000];
         std::string response_string;
         std::string header_string;
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_string);
-        curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header_string);
+        ret = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
+        if(ret!=0)
+            std::cout << "curl_easy_setopt CURLOPT_WRITEFUNCTION ret = " << ret << std::endl;
+
+        ret = curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_string);
+        if(ret!=0)
+            std::cout << "curl_easy_setopt CURLOPT_WRITEDATA ret = " << ret << std::endl;
+
+        ret = curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, &errors);
+        if(ret!=0)
+            std::cout << "curl_easy_setopt CURLOPT_ERRORBUFFER ret = " << ret << std::endl;
+        // std::cout << "errors = " << errors << std::endl;
         
+        ret = curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header_string);
+        if(ret!=0)
+            std::cout << "curl_easy_setopt CURLOPT_HEADERDATA ret = " << ret << std::endl;
+
         char* url;
         long response_code;
         double elapsed;
-        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-        curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &elapsed);
-        curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &url);
+        ret = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+        if(ret!=0)
+            std::cout << "curl_easy_getinfo CURLINFO_RESPONSE_CODE ret = " << ret << std::endl;
         
-        curl_easy_perform(curl);
+        ret = curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &elapsed);
+        if(ret!=0)
+            std::cout << "curl_easy_getinfo CURLINFO_TOTAL_TIME ret = " << ret << std::endl;
+        
+        ret = curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &url);
+        if(ret!=0)
+            std::cout << "curl_easy_getinfo CURLINFO_EFFECTIVE_URL ret = " << ret << std::endl;
+        
+        ret = curl_easy_perform(curl);
+        if(ret!=0)
+            std::cout << "curl_easy_perform(curl) ret = " << ret << std::endl;
+        
         curl_easy_cleanup(curl);
         curl = NULL;
         
+        // std::cout << "response_string = " << response_string << std::endl;
+        // std::cout << "header_string   = " << header_string << std::endl;
         return response_string;
     }
     else
@@ -107,9 +140,12 @@ int main(int argc, char **argv)
     while (ros::ok())
     {
 
-       // state = GetState("http://10.40.232.67:8080/getstate");
+        state = GetState("http://10.40.191.28:8080/getstate");
+        std::cout << "state = " << state << std::endl;
+        if(state == "")
+            break;
         
-       stateMachine[state]->run();
+        // stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
 
@@ -124,6 +160,7 @@ int main(int argc, char **argv)
         ++count;*/
         if(state == "break")
             break;
+        // break;
     }
     
     /*
