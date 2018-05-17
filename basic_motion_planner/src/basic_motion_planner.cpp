@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
     pub = nh.advertise<sensor_msgs::PointCloud2>("bmp", 10);
 
-    pcl::PointCloud<pcl::PointXY> cloud;
+    pcl::PointCloud<pcl::PointXYZ> cloud;
     sensor_msgs::PointCloud2 pclmsg;
 
     ros::Rate rate(40.0);

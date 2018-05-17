@@ -32,7 +32,7 @@ public:
     MotionComputer(ros::NodeHandle &nh);
     bool computeMotion();
     std::vector<float> v;
-    pcl::PointCloud<pcl::PointXY> cloud;
+    pcl::PointCloud<pcl::PointXYZ> cloud;
 };
 
 #endif //MOTION_COMPUTER_H

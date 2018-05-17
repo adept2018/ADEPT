@@ -16,7 +16,7 @@ public:
     LaserScanToPointCloud() {
     }
 
-    pcl::PointCloud<pcl::PointXY> scanToCloud(const sensor_msgs::LaserScan &scan, const geometry_msgs::Pose &pose);
+    pcl::PointCloud<pcl::PointXYZ> scanToCloud(const sensor_msgs::LaserScan &scan, const geometry_msgs::Pose &pose);
 };
 
 #endif //LASERSCAN_TO_POINTCLOUD_H

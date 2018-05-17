@@ -33,6 +33,7 @@ bool MotionComputer::computeMotion() {
         cloud = laserScanToPointCloud.scanToCloud(scan, odom.pose.pose);
         float x = 0;
         float y = 0;
+        float z = 0;
 
         // the simple motion planner
         for (int i = 0; i < cloud.size(); i++) {
@@ -41,6 +42,7 @@ bool MotionComputer::computeMotion() {
         }
         v.push_back(-x);
         v.push_back(-y);
+        v.push_back(z);
     }
     return true;
 }
