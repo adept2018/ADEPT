@@ -26,7 +26,7 @@ private:
     ros::Subscriber odom_sub;
 
     void scanCallBack(const sensor_msgs::LaserScan::ConstPtr &scan);
-    void odomCallBack(const nav_msgs::Odometry::ConstPtr &odom);
+    void poseCallBack(const geometry_msgs::Pose::ConstPtr &pose);
 
 public:
     MotionComputer(ros::NodeHandle &nh);
