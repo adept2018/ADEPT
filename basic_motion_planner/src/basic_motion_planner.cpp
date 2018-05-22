@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 
         cloud = motionComputer.cloud;
 
-        if (!motionComputer.v.empty()) {
+        if (!cloud.empty()) {
             geometry_msgs::PoseStamped outputMsg;
             outputMsg.header.frame_id = "bmp";
 

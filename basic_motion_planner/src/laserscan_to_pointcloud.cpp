@@ -11,7 +11,7 @@ pcl::PointCloud<pcl::PointXYZ> LaserScanToPointCloud::scanToCloud(const sensor_m
 
         float r = scan.ranges[i];
 
-        if (r > 8.0 || r < 0.3) {  // max range of the laser scanner
+        if (r > 2.0 || r < 0.3) {  // max range of the laser scanner
             continue;
         }
 
