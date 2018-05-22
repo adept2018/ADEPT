@@ -7,8 +7,10 @@
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <basic_motion_planner/motion_computer.h>
+#include <geometry_msgs/PoseStamped.h>
 
-// Publisher:
-ros::Publisher pub;
+// Publishers:
+ros::Publisher pubCloud;
+ros::Publisher pubPose;
 
 #endif //BASIC_MOTION_PLANNER_H

@@ -6,8 +6,6 @@
 #include <cmath>
 #include <queue>
 #include <sensor_msgs/LaserScan.h>
-#include <nav_msgs/Odometry.h>
-#include <geometry_msgs/Pose.h>
 
 #include <basic_motion_planner/laserscan_to_pointcloud.h>
 
@@ -19,14 +17,11 @@ private:
     bool acquired_scan;
 
     std::queue<sensor_msgs::LaserScan> scan_queue;
-    std::queue<nav_msgs::Odometry> odom_queue;
 
     // Subscriber:
     ros::Subscriber scan_sub;
-    ros::Subscriber odom_sub;
 
     void scanCallBack(const sensor_msgs::LaserScan::ConstPtr &scan);
-    void odomCallBack(const nav_msgs::Odometry::ConstPtr &odom);
 
 public:
     MotionComputer(ros::NodeHandle &nh);
