@@ -43,8 +43,8 @@ std::string GetState(const char *serverURL)
     int ret;
     if (curl) {
         ret = curl_easy_setopt(curl, CURLOPT_URL, serverURL);
-        if(ret!=0)
-            std::cout << "ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "ret = " << ret << std::endl;
         // curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
         // curl_easy_setopt(curl, CURLOPT_USERPWD, "user:pass");
         // curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
@@ -56,40 +56,40 @@ std::string GetState(const char *serverURL)
         std::string response_string;
         std::string header_string;
         ret = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
-        if(ret!=0)
-            std::cout << "curl_easy_setopt CURLOPT_WRITEFUNCTION ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_setopt CURLOPT_WRITEFUNCTION ret = " << ret << std::endl;
 
         ret = curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_string);
-        if(ret!=0)
-            std::cout << "curl_easy_setopt CURLOPT_WRITEDATA ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_setopt CURLOPT_WRITEDATA ret = " << ret << std::endl;
 
         ret = curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, &errors);
-        if(ret!=0)
-            std::cout << "curl_easy_setopt CURLOPT_ERRORBUFFER ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_setopt CURLOPT_ERRORBUFFER ret = " << ret << std::endl;
         // std::cout << "errors = " << errors << std::endl;
         
         ret = curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header_string);
-        if(ret!=0)
-            std::cout << "curl_easy_setopt CURLOPT_HEADERDATA ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_setopt CURLOPT_HEADERDATA ret = " << ret << std::endl;
 
         char* url;
         long response_code;
         double elapsed;
         ret = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-        if(ret!=0)
-            std::cout << "curl_easy_getinfo CURLINFO_RESPONSE_CODE ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_getinfo CURLINFO_RESPONSE_CODE ret = " << ret << std::endl;
         
         ret = curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &elapsed);
-        if(ret!=0)
-            std::cout << "curl_easy_getinfo CURLINFO_TOTAL_TIME ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_getinfo CURLINFO_TOTAL_TIME ret = " << ret << std::endl;
         
         ret = curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &url);
-        if(ret!=0)
-            std::cout << "curl_easy_getinfo CURLINFO_EFFECTIVE_URL ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_getinfo CURLINFO_EFFECTIVE_URL ret = " << ret << std::endl;
         
         ret = curl_easy_perform(curl);
-        if(ret!=0)
-            std::cout << "curl_easy_perform(curl) ret = " << ret << std::endl;
+        // if(ret!=0)
+            // std::cout << "curl_easy_perform(curl) ret = " << ret << std::endl;
         
         curl_easy_cleanup(curl);
         curl = NULL;

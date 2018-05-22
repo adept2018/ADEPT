@@ -17,6 +17,8 @@ protected:
     ros::Publisher _servo_pub;
     ros::NodeHandle *_n;
     
+    float speed;
+    
 public:
     carstate(ros::NodeHandle *n);
     
