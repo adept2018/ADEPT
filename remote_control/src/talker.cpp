@@ -35,7 +35,7 @@ size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
     return size * nmemb;
 }
 
-std::string GetState(char *serverURL)
+std::string GetState(const char *serverURL)
 {
     CURL *curl = curl_easy_init();
     // std::cout << "curl = " << curl << std::endl;
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
     int count = 0;
     std_msgs::Float64 msg;
     
-    std::string state = "forward";
+    std::string state = "right";
     
     std::map<std::string, carstate*> stateMachine;
     
@@ -136,16 +136,18 @@ int main(int argc, char **argv)
 	stateMachine["rightbackward"] = new rightbackward(&n);
     
 	// std::cout << "state = " << state << std::endl;
-    
+
+    std::string serverURL= "http://10.40.190.214:8080/getstate";
     while (ros::ok())
     {
 
-        state = GetState("http://10.40.191.28:8080/getstate");
+        // state = GetState("http://10.40.191.28:8080/getstate");
+        state = GetState(serverURL.c_str());
         std::cout << "state = " << state << std::endl;
         if(state == "")
             break;
         
-        // stateMachine[state]->run();
+        stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
 
