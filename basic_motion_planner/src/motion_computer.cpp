@@ -34,8 +34,8 @@ bool MotionComputer::computeMotion() {
         x = x / length;
         y = y / length;
 
-        v.push_back(-x);
-        v.push_back(-y);
+        v.push_back(x);
+        v.push_back(y);
         v.push_back(z);
     }
     return true;

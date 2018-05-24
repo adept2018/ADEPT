@@ -34,8 +34,8 @@ int main(int argc, char** argv) {
             outputMsg.pose.position.y = 0;
             outputMsg.pose.position.z = 0;
 
-            outputMsg.pose.orientation.x = motionComputer.v[0];
-            outputMsg.pose.orientation.y = motionComputer.v[1];
+            outputMsg.pose.orientation.x = -motionComputer.v[0];
+            outputMsg.pose.orientation.y = -motionComputer.v[1];
             outputMsg.pose.orientation.z = 0;
             outputMsg.pose.orientation.w = 0;
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
             pubCloud.publish(pclmsg);
             pubPose.publish(outputMsg);
 
-            std::cout<<"publish: x="<<motionComputer.v[0]<<" y="<<motionComputer.v[1]<<std::endl;
+            // std::cout<<"publish: x="<<motionComputer.v[0]<<" y="<<motionComputer.v[1]<<std::endl;
         }
 
 

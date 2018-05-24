@@ -7,15 +7,23 @@ pcl::PointCloud<pcl::PointXYZ> LaserScanToPointCloud::scanToCloud(const sensor_m
     pcl::PointXYZ point;
     pcl::PointCloud<pcl::PointXYZ> cloud;
 
+    // std::cout<<"min_angle="<<scan.angle_min<<" max_angle="<<scan.angle_max<<" angle_increment="<<scan.angle_increment<<std::endl;
+    // std::cout<<"min_range="<<scan.range_min<<" max_range="<<scan.range_max<<std::endl;
+
     for (int i = 0; i < scan.ranges.size(); i++) {
 
         float r = scan.ranges[i];
+        std::cout<<"i="<<i<<" range="<<r<<std::endl;
 
-        if (r > 2.0 || r < 0.3) {  // max range of the laser scanner
+        if (r > 2.0 || r < 0.3) {
             continue;
         }
 
         float theta = scan.angle_min + i * scan.angle_increment;
+
+        if (theta < -2.3562 || theta > -0.7854) {
+            continue;
+        }
 
         point.x = r * (cos(theta) - sin(theta));
         point.y = r * (sin(theta) + cos(theta));
