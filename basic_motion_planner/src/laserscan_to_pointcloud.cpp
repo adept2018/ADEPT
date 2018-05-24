@@ -19,9 +19,9 @@ pcl::PointCloud<pcl::PointXYZ> LaserScanToPointCloud::scanToCloud(const sensor_m
             continue;
         }
 
-        float theta = scan.angle_min + i * scan.angle_increment;
+        float theta = scan.angle_min + i * scan.angle_increment - 1.5708;
 
-        if (theta < -2.3562 || theta > -0.7854) {
+        if (theta < -0.4014 || theta > 0.4014) {
             continue;
         }
 
