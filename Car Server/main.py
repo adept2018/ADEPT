@@ -22,10 +22,10 @@ def state():
     if time.time() > data["lastTime"] + 0.1:
         data["state"] = "idle"
     return data["state"]
-    # return "NOSTATE"
+    # return "forward"
 
 # Set this to the servers IP you probably need to change this every time you run this
-IP = "10.40.191.28"
+IP = "10.40.190.113"
 PORT = 8080 # 8080 is standard debug port
 if __name__=="__main__":
     # run(host=IP, port=8080, quiet=True)

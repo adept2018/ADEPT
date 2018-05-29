@@ -89,12 +89,12 @@ namespace Car_Remote_Control
             else
                 state ="idle";
 
-            if(state != "idle")
+            if(state != "idle" && IsActive)
             {
                 try
                 {
                     string html = string.Empty;
-                    string url = @"http://10.40.191.28:8080/setstate/"+state;
+                    string url = @"http://10.40.190.113:8080/setstate/"+state;
 
                     System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
                     request.AutomaticDecompression = System.Net.DecompressionMethods.GZip;
