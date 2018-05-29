@@ -7,7 +7,7 @@ right::right(ros::NodeHandle *n): carstate(n)
 
 void right::run(void)
 {
-    SetWheel(3.14/4);
+    Ackerman(0, -_angle);
 }
 
 right::~right(void)

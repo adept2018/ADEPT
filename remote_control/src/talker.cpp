@@ -15,7 +15,8 @@
 
 To run.
 
-roslaunch vesc_driver vesc_driver_node.launch
+// roslaunch vesc_driver vesc_driver_node.launch
+roslaunch racecar teleop.launch
 rosrun remote_control talker
 
 */
@@ -23,6 +24,7 @@ rosrun remote_control talker
 #include "carstate.h"
 #include "forward.h"
 #include "backward.h"
+#include "idle.h"
 #include "left.h"
 #include "right.h"
 #include "leftforward.h"
@@ -38,7 +40,6 @@ size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
 std::string GetState(const char *serverURL)
 {
     CURL *curl = curl_easy_init();
-    // std::cout << "curl = " << curl << std::endl;
     char errors[1024];
     int ret;
     if (curl) {
@@ -102,6 +103,11 @@ std::string GetState(const char *serverURL)
         return NULL;
 }
 
+std::string GetState(std::string serverURL)
+{
+    return GetState(serverURL.c_str());
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "talker");
@@ -109,8 +115,8 @@ int main(int argc, char **argv)
 
     ros::NodeHandle n;
 
-    ros::Publisher duty_cycle_pub = n.advertise<std_msgs::Float64>("commands/motor/duty_cycle", 1000);
-    ros::Publisher servo_pub = n.advertise<std_msgs::Float64>("commands/servo/position", 1000);
+    // ros::Publisher duty_cycle_pub = n.advertise<std_msgs::Float64>("commands/motor/duty_cycle", 1000);
+    // ros::Publisher servo_pub = n.advertise<std_msgs::Float64>("commands/servo/position", 1000);
     
     //ros::Publisher current_pub_ = n.advertise<std_msgs::Float64>("commands/motor/current", 1000);
     //ros::Publisher brake_pub_ = n.advertise<std_msgs::Float64>("commands/motor/brake", 1000);
@@ -126,6 +132,7 @@ int main(int argc, char **argv)
     
     std::map<std::string, carstate*> stateMachine;
     
+	stateMachine["idle"] = new idle(&n);
 	stateMachine["forward"] = new forward(&n);
 	stateMachine["left"] = new left(&n);
 	stateMachine["right"] = new right(&n);
@@ -137,16 +144,18 @@ int main(int argc, char **argv)
     
 	// std::cout << "state = " << state << std::endl;
 
-    std::string serverURL= "http://10.40.190.214:8080/getstate";
+    std::string serverURL= "http://10.40.190.113:8080/getstate";
     while (ros::ok())
     {
 
         // state = GetState("http://10.40.191.28:8080/getstate");
-        state = GetState(serverURL.c_str());
+        state = GetState(serverURL);
         std::cout << "state = " << state << std::endl;
         if(state == "")
             break;
+            
         
+        std::cout << "calling state = " << state << std::endl;
         stateMachine[state]->run();
 
         /*msg.data = static_cast<float>(count*0.0001);
