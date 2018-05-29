@@ -45,7 +45,7 @@ teleop:
     message_type: ackermann_msgs/AckermannDriveStamped
     topic_name: low_level/ackermann_cmd_mux/input/teleop
     message_value:
-      -	
+      -
         target: drive.speed
         scale: 2.0                   # joystick will command plus or minus 2 meters / second
         offset: 0.0

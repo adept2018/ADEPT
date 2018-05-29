@@ -16,7 +16,7 @@
 To run.
 
 // roslaunch vesc_driver vesc_driver_node.launch
-roslaunch racecar teleop.launch
+roslaunch racecar auto_teleop.launch
 rosrun remote_control talker
 
 */
