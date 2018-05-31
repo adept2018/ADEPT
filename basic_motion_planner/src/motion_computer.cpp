@@ -1,5 +1,7 @@
 #include <basic_motion_planner/motion_computer.h>
 
+#define PI 3.14159265
+
 MotionComputer::MotionComputer(ros::NodeHandle &nh) {
     scan_sub = nh.subscribe("/scan", 10, &MotionComputer::scanCallBack, this);
 }
@@ -18,25 +20,36 @@ bool MotionComputer::computeMotion() {
         cloud.clear();
 
         cloud = laserScanToPointCloud.scanToCloud(scan);
-        float x = 0;
-        float y = 0;
-        float z = 0;
 
         int numberOfPoints = cloud.size();
 
-        // the simple motion planner
-        for (int i = 0; i < numberOfPoints; i++) {
-            x += 1 / cloud.points[i].x;
-            y += 1 / cloud.points[i].y;
+        if (numberOfPoints > 0) {
+            float theta = 0;
+
+            // Sum all angles
+            for (int i = 0; i < numberOfPoints; i++) {
+                float x = cloud.points[i].x;
+                float y = cloud.points[i].y;
+                theta += atan(y / x);
+            }
+
+            // Dived angle by number of points
+            float theta_w = theta / numberOfPoints;
+
+            // Offset to turn away from obstacle
+            float offset = 0.52;
+
+            // Decide which way to turn away from obstacle
+            if (theta_w < 0) {
+                theta_w += offset;
+            } else {
+                theta_w += -offset;
+            }
+
+            v.push_back(cos(theta_w));
+            v.push_back(sin(theta_w));
+            v.push_back(theta_w);
         }
-
-        float length = sqrt(x * x + y * y);
-        x = x / length;
-        y = y / length;
-
-        v.push_back(x);
-        v.push_back(y);
-        v.push_back(z);
     }
     return true;
 }

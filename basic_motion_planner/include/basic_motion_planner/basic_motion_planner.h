@@ -8,9 +8,12 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <basic_motion_planner/motion_computer.h>
 #include <geometry_msgs/PoseStamped.h>
+#include <ackermann_msgs/AckermannDriveStamped.h>
 
 // Publishers:
 ros::Publisher pubCloud;
 ros::Publisher pubPose;
+ros::Publisher pubDirection;
+ros::Publisher pubAck;
 
 #endif //BASIC_MOTION_PLANNER_H

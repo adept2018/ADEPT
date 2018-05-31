@@ -9,6 +9,8 @@ int main(int argc, char** argv) {
 
     pubPose = nh.advertise<geometry_msgs::PoseStamped>("bmp/pose", 10);
     pubCloud = nh.advertise<sensor_msgs::PointCloud2>("bmp/cloud", 10);
+    pubDirection = nh.advertise<geometry_msgs::PoseStamped>("bmp/direction", 10);
+    pubAck = nh.advertise<ackermann_msgs::AckermannDriveStamped>("vesc/high_level/ackermann_cmd_mux/input/default/", 10);
 
     pcl::PointCloud<pcl::PointXYZ> cloud;
     sensor_msgs::PointCloud2 pclmsg;
@@ -26,7 +28,10 @@ int main(int argc, char** argv) {
 
         cloud = motionComputer.cloud;
 
+        float steeringAngle = 0;
+
         if (!cloud.empty()) {
+            // Some stuff for visualization
             geometry_msgs::PoseStamped outputMsg;
             outputMsg.header.frame_id = "bmp";
 
@@ -34,8 +39,8 @@ int main(int argc, char** argv) {
             outputMsg.pose.position.y = 0;
             outputMsg.pose.position.z = 0;
 
-            outputMsg.pose.orientation.x = -motionComputer.v[0];
-            outputMsg.pose.orientation.y = -motionComputer.v[1];
+            outputMsg.pose.orientation.x = motionComputer.v[0];
+            outputMsg.pose.orientation.y = motionComputer.v[1];
             outputMsg.pose.orientation.z = 0;
             outputMsg.pose.orientation.w = 0;
 
@@ -44,9 +49,32 @@ int main(int argc, char** argv) {
             pubCloud.publish(pclmsg);
             pubPose.publish(outputMsg);
 
-            // std::cout<<"publish: x="<<motionComputer.v[0]<<" y="<<motionComputer.v[1]<<std::endl;
+            geometry_msgs::PoseStamped direction;
+            direction.header.frame_id = "bmp";
+
+            direction.pose.position.x = 0;
+            direction.pose.position.y = 0;
+            direction.pose.position.z = 0;
+
+            direction.pose.orientation.x = 1;
+            direction.pose.orientation.y = 0;
+            direction.pose.orientation.z = 0;
+            direction.pose.orientation.w = 0;
+            pubDirection.publish(direction);
+            // End of stuff for visualization
+
+            // Computed angle
+            steeringAngle = motionComputer.v[2];
         }
 
+
+        ackermann_msgs::AckermannDriveStamped ackMsg;
+        ackMsg.header.frame_id = "bmp";
+
+        // 0 or computed angle from motionComputer
+        ackMsg.drive.steering_angle = steeringAngle;
+        // Use fixed speed (m/s)
+        ackMsg.drive.speed = 0.5;
 
         rate.sleep();
     }
