@@ -4,6 +4,8 @@
   <!-- Console launch prefix -->
   <arg name="launch_prefix" default=""/>
 
+  <include file="$(find zed_wrapper)/launch/zed_camera.launch" />
+
   <!-- Config and weights folder. -->
   <arg name="yolo_weights_path"          default="$(find darknet_ros)/yolo_network_config/weights"/>
   <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
