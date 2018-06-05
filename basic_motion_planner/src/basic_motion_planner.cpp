@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     pubPose = nh.advertise<geometry_msgs::PoseStamped>("bmp/pose", 10);
     pubCloud = nh.advertise<sensor_msgs::PointCloud2>("bmp/cloud", 10);
     pubDirection = nh.advertise<geometry_msgs::PoseStamped>("bmp/direction", 10);
-    pubAck = nh.advertise<ackermann_msgs::AckermannDriveStamped>("vesc/high_level/ackermann_cmd_mux/input/default/", 10);
+    pubAck = nh.advertise<ackermann_msgs::AckermannDriveStamped>("vesc/high_level/ackermann_cmd_mux/input/default", 10);
 
     pcl::PointCloud<pcl::PointXYZ> cloud;
     sensor_msgs::PointCloud2 pclmsg;
@@ -65,16 +65,23 @@ int main(int argc, char** argv) {
 
             // Computed angle
             steeringAngle = motionComputer.v[2];
+            if (steeringAngle > 0.34) {
+                steeringAngle = 0.34;
+            }
+            if (steeringAngle < -0.34) {
+                steeringAngle = -0.34;
+            }
         }
 
 
         ackermann_msgs::AckermannDriveStamped ackMsg;
-        ackMsg.header.frame_id = "bmp";
 
         // 0 or computed angle from motionComputer
         ackMsg.drive.steering_angle = steeringAngle;
         // Use fixed speed (m/s)
         ackMsg.drive.speed = 0.5;
+
+        pubAck.publish(ackMsg);
 
         rate.sleep();
     }

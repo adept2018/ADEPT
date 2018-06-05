@@ -12,6 +12,7 @@ pcl::PointCloud<pcl::PointXYZ> LaserScanToPointCloud::scanToCloud(const sensor_m
             continue;
         }
 
+        // Offset of the lidar is 90 degrees
         float offset = 1.5708;
         float theta = scan.angle_min + i * scan.angle_increment + offset;
 
