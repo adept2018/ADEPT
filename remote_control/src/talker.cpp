@@ -31,6 +31,7 @@ rosrun remote_control talker
 #include "rightforward.h"
 #include "leftbackward.h"
 #include "rightbackward.h"
+#include "avoid.h"
 
 size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
     data->append((char*) ptr, size * nmemb);
@@ -141,10 +142,11 @@ int main(int argc, char **argv)
 	stateMachine["backward"] = new backward(&n);
     stateMachine["leftbackward"] = new leftbackward(&n);
 	stateMachine["rightbackward"] = new rightbackward(&n);
+	stateMachine["avoid"] = new avoid(&n);
     
 	// std::cout << "state = " << state << std::endl;
 
-    std::string serverURL= "http://10.40.190.113:8080/getstate";
+    std::string serverURL= "http://10.40.190.95:8080/getstate";
     while (ros::ok())
     {
 

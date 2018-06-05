@@ -26,6 +26,8 @@ add_executable(talker src/talker.cpp
 					  src/right.cpp 
 					  src/leftbackward.cpp
 					  src/rightbackward.cpp 
+					  src/avoid.cpp 
+					  #src/path.cpp 
 					  )
 target_link_libraries(talker ${catkin_LIBRARIES} curl)
 add_dependencies(talker beginner_tutorials_generate_messages_cpp)
