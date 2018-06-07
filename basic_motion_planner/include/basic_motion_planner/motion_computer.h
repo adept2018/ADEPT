@@ -6,7 +6,6 @@
 #include <cmath>
 #include <queue>
 #include <sensor_msgs/LaserScan.h>
-
 #include <basic_motion_planner/laserscan_to_pointcloud.h>
 
 class MotionComputer {
@@ -26,7 +25,7 @@ private:
 public:
     MotionComputer(ros::NodeHandle &nh);
     bool computeMotion();
-    std::vector<float> v;
+    std::vector<float> direction;
     pcl::PointCloud<pcl::PointXYZ> visibleCloud;
     pcl::PointCloud<pcl::PointXYZ> invisibleCloud;
 };

@@ -1,6 +1,6 @@
 #include <basic_motion_planner/motion_computer.h>
 
-#define PI 3.14159265
+#define PI atan(1)*4;
 
 MotionComputer::MotionComputer(ros::NodeHandle &nh) {
     scan_sub = nh.subscribe("/scan", 10, &MotionComputer::scanCallBack, this);
@@ -16,7 +16,7 @@ bool MotionComputer::computeMotion() {
         sensor_msgs::LaserScan scan = scan_queue.front();
         scan_queue.pop();
 
-        v.clear();
+        direction.clear();
         visibleCloud.clear();
         invisibleCloud.clear();
 
@@ -44,13 +44,14 @@ bool MotionComputer::computeMotion() {
             // Decide which way to turn away from obstacle
             if (theta_w < 0) {
                 theta_w += offset;
-            } else {
+            }
+            else {
                 theta_w += -offset;
             }
 
-            v.push_back(cos(theta_w));
-            v.push_back(sin(theta_w));
-            v.push_back(theta_w);
+            direction.push_back(cos(theta_w));
+            direction.push_back(sin(theta_w));
+            direction.push_back(theta_w);
         }
     }
     return true;

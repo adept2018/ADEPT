@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
         if (!motionComputer.visibleCloud.empty()) {
 
             // Computed angle
-            steeringAngle = motionComputer.v[2];
+            steeringAngle = motionComputer.direction[2];
             if (steeringAngle > 0.34) {
                 steeringAngle = 0.34;
             }
@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
             outputMsg.pose.position.y = 0;
             outputMsg.pose.position.z = 0;
 
-            outputMsg.pose.orientation.x = motionComputer.v[0];
-            outputMsg.pose.orientation.y = motionComputer.v[1];
+            outputMsg.pose.orientation.x = motionComputer.direction[0];
+            outputMsg.pose.orientation.y = motionComputer.direction[1];
             outputMsg.pose.orientation.z = 0;
             outputMsg.pose.orientation.w = 0;
 

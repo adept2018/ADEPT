@@ -1,15 +1,18 @@
 #include <basic_motion_planner/laserscan_to_pointcloud.h>
 
-bool filter(float range, float angle) {
+bool LaserScanToPointCloud::filter(float range, float angle) {
   float max_range = 2.0;
   float min_range = 0.3;
+
   if (range > max_range || range < min_range) {
       return false;
   }
+
   float angle_range = 0.5;
   if (angle < -angle_range || angle > angle_range) {
       return false;
   }
+  
   return true;
 }
 

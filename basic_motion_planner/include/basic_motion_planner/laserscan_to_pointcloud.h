@@ -10,7 +10,8 @@
 
 class LaserScanToPointCloud {
 private:
-
+    bool filter(float range, float angle);
+    
 public:
     LaserScanToPointCloud() {
     }
