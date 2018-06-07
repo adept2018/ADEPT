@@ -148,7 +148,7 @@ int main(int argc, char **argv)
     
 	// std::cout << "state = " << state << std::endl;
 
-    std::string serverURL= "http://10.40.190.95:8080/getstate";
+    std::string serverURL= "http://10.0.80.31:8080/getstate";
     while (ros::ok())
     {
 

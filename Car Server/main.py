@@ -25,7 +25,7 @@ def state():
     # return "forward"
 
 # Set this to the servers IP you probably need to change this every time you run this
-IP = "10.40.190.113"
+IP = "10.0.80.31"
 PORT = 8080 # 8080 is standard debug port
 if __name__=="__main__":
     # run(host=IP, port=8080, quiet=True)
