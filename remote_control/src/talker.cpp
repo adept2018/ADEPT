@@ -13,11 +13,13 @@
 
 /*
 
-To run.
+To run:
 
 // roslaunch vesc_driver vesc_driver_node.launch
-roslaunch racecar auto_teleop.launch
-rosrun remote_control talker
+// roslaunch racecar auto_teleop.launch
+// rosrun remote_control talker
+
+roslaunch remote_control cloud.launch
 
 */
 
