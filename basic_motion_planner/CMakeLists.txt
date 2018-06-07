@@ -5,11 +5,8 @@ project(basic_motion_planner)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-  std_msgs
-  nav_msgs
   sensor_msgs
   geometry_msgs
-  pcl_ros
   pcl_conversions
   ackermann_msgs
 )
