@@ -17,12 +17,13 @@ pcl::PointCloud<pcl::PointXYZ> LaserScanToPointCloud::scanToCloud(const sensor_m
     pcl::PointXYZ point;
     pcl::PointCloud<pcl::PointXYZ> cloud;
 
-    for (int i = 0; i < scan.ranges.size(); i++) {
+    for (int i = 0; i < scan.ranges.size(); ++i) {
 
         float r = scan.ranges[i];
 
         // Offset of the lidar is 90 degrees
-        float offset = 1.5708;
+        float pi = atan(1)*4;
+        float offset = pi/2;
         float theta = scan.angle_min + i * scan.angle_increment + offset;
 
         if (filter(r, theta) == insideFilter) {
