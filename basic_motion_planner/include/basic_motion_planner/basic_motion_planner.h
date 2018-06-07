@@ -11,7 +11,8 @@
 #include <ackermann_msgs/AckermannDriveStamped.h>
 
 // Publishers:
-ros::Publisher pubCloud;
+ros::Publisher pubCloudVisible;
+ros::Publisher pubCloudInvisible;
 ros::Publisher pubPose;
 ros::Publisher pubDirection;
 ros::Publisher pubAck;

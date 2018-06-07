@@ -8,12 +8,10 @@ int main(int argc, char** argv) {
     MotionComputer motionComputer(nh);
 
     pubPose = nh.advertise<geometry_msgs::PoseStamped>("bmp/pose", 10);
-    pubCloud = nh.advertise<sensor_msgs::PointCloud2>("bmp/cloud", 10);
+    pubCloudVisible = nh.advertise<sensor_msgs::PointCloud2>("bmp/cloud/visible", 10);
+    pubCloudInvisible = nh.advertise<sensor_msgs::PointCloud2>("bmp/cloud/invisible", 10);
     pubDirection = nh.advertise<geometry_msgs::PoseStamped>("bmp/direction", 10);
     pubAck = nh.advertise<ackermann_msgs::AckermannDriveStamped>("vesc/high_level/ackermann_cmd_mux/input/default", 10);
-
-    pcl::PointCloud<pcl::PointXYZ> cloud;
-    sensor_msgs::PointCloud2 pclmsg;
 
     ros::Rate rate(40.0);
     std::cout << "Running the basic motion planner." << std::endl;
@@ -26,12 +24,20 @@ int main(int argc, char** argv) {
             return -1;
         }
 
-        cloud = motionComputer.cloud;
-
         float steeringAngle = 0;
 
-        if (!cloud.empty()) {
-            // Some stuff for visualization
+        if (!motionComputer.visibleCloud.empty()) {
+
+            // Computed angle
+            steeringAngle = motionComputer.v[2];
+            if (steeringAngle > 0.34) {
+                steeringAngle = 0.34;
+            }
+            if (steeringAngle < -0.34) {
+                steeringAngle = -0.34;
+            }
+
+            // Computed direction
             geometry_msgs::PoseStamped outputMsg;
             outputMsg.header.frame_id = "bmp";
 
@@ -44,35 +50,37 @@ int main(int argc, char** argv) {
             outputMsg.pose.orientation.z = 0;
             outputMsg.pose.orientation.w = 0;
 
-            pcl::toROSMsg(cloud, pclmsg);
-            pclmsg.header.frame_id = "bmp";
-            pubCloud.publish(pclmsg);
             pubPose.publish(outputMsg);
 
-            geometry_msgs::PoseStamped direction;
-            direction.header.frame_id = "bmp";
-
-            direction.pose.position.x = 0;
-            direction.pose.position.y = 0;
-            direction.pose.position.z = 0;
-
-            direction.pose.orientation.x = 1;
-            direction.pose.orientation.y = 0;
-            direction.pose.orientation.z = 0;
-            direction.pose.orientation.w = 0;
-            pubDirection.publish(direction);
-            // End of stuff for visualization
-
-            // Computed angle
-            steeringAngle = motionComputer.v[2];
-            if (steeringAngle > 0.34) {
-                steeringAngle = 0.34;
-            }
-            if (steeringAngle < -0.34) {
-                steeringAngle = -0.34;
-            }
+            // Visible point cloud from lidar
+            sensor_msgs::PointCloud2 pclmsg;
+            pcl::toROSMsg(motionComputer.visibleCloud, pclmsg);
+            pclmsg.header.frame_id = "bmp";
+            pubCloudVisible.publish(pclmsg);
         }
 
+        // Vector showing forward direction
+        geometry_msgs::PoseStamped direction;
+        direction.header.frame_id = "bmp";
+
+        direction.pose.position.x = 0;
+        direction.pose.position.y = 0;
+        direction.pose.position.z = 0;
+
+        direction.pose.orientation.x = 1;
+        direction.pose.orientation.y = 0;
+        direction.pose.orientation.z = 0;
+        direction.pose.orientation.w = 0;
+        pubDirection.publish(direction);
+
+        if (!motionComputer.invisibleCloud.empty()) {
+
+            // Non visible point cloud from lidar
+            sensor_msgs::PointCloud2 pclmsg;
+            pcl::toROSMsg(motionComputer.invisibleCloud, pclmsg);
+            pclmsg.header.frame_id = "bmp";
+            pubCloudInvisible.publish(pclmsg);
+        }
 
         ackermann_msgs::AckermannDriveStamped ackMsg;
 

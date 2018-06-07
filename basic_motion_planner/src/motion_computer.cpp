@@ -17,19 +17,21 @@ bool MotionComputer::computeMotion() {
         scan_queue.pop();
 
         v.clear();
-        cloud.clear();
+        visibleCloud.clear();
+        invisibleCloud.clear();
 
-        cloud = laserScanToPointCloud.scanToCloud(scan);
+        visibleCloud = laserScanToPointCloud.scanToCloud(scan, true);
+        invisibleCloud = laserScanToPointCloud.scanToCloud(scan, false);
 
-        int numberOfPoints = cloud.size();
+        int numberOfPoints = visibleCloud.size();
 
         if (numberOfPoints > 0) {
             float theta = 0;
 
             // Sum all angles
             for (int i = 0; i < numberOfPoints; i++) {
-                float x = cloud.points[i].x;
-                float y = cloud.points[i].y;
+                float x = visibleCloud.points[i].x;
+                float y = visibleCloud.points[i].y;
                 theta += atan(y / x);
             }
 
