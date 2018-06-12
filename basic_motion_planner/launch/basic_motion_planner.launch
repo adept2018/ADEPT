@@ -11,9 +11,14 @@
   <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
   </node>
 
+  <node name="rplidarNodeClient" pkg="rplidar_ros" type="rplidarNodeClient" output="screen">
+  </node>
+
   <node name="bmp" pkg="basic_motion_planner" type="bmp" output="screen">
   </node>
 
-  <node name="rplidarNodeClient" pkg="rplidar_ros" type="rplidarNodeClient" output="screen">
-  </node>
+  <include file="$(find zed_wrapper)/launch/zed.launch">
+      <arg name="camera_model" value="0" /> <!-- 0=ZED, 1=ZEDM-->
+  </include>
+
 </launch>
