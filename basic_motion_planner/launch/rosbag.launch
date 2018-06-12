@@ -1,0 +1,6 @@
+<launch>
+
+    <node name="bmp" pkg="basic_motion_planner" type="bmp" output="screen">
+    </node>
+
+</launch>
