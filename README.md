@@ -1,4 +1,3 @@
-
 # ADEPT
 
 ## Requirements
@@ -46,8 +45,21 @@ Choose erase disk and install.
 
 Choose the 8gb+ USB drive as disk to install ubuntu on.
 
+
 # CONTROL
 
 To compile and run the destkop C# remote controll code you need http://www.monogame.net/
 
 To run the car server python code you need https://bottlepy.org/ Use Python 3.
+
+
+# LOCALIZATION
+
+## Requirements
+
+	sudo apt-get install ros-kinetic-gmapping
+
+## How to start SLAM
+
+	roslaunch rplidar_ros viewhectorSlam.launch
+
