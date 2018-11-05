@@ -1,0 +1,24 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <arg name="racecar_version" default="racecar-v2" />
+  <arg name="run_camera" default="false"/>
+
+  <include file="$(find racecar)/launch/includes/$(arg racecar_version)-teleop.launch.xml">
+    <arg name="racecar_version" value="$(arg racecar_version)" />
+    <arg name="run_camera" value="$(arg run_camera)" />
+  </include>
+
+  <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+  </node>
+
+  <node name="rplidarNodeClient" pkg="rplidar_ros" type="rplidarNodeClient" output="screen">
+  </node>
+
+  <node name="bmp" pkg="basic_motion_planner" type="bmp" output="screen">
+  </node>
+
+  <include file="$(find zed_wrapper)/launch/zed.launch">
+      <arg name="camera_model" value="0" /> <!-- 0=ZED, 1=ZEDM-->
+  </include>
+
+</launch>
