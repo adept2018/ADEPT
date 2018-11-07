@@ -7,12 +7,8 @@
 * ..?
 
 
-## Getting started
-To download all the repo's and setup the catkin workspace included in the ADEPT repo run the following script.
-    ./tools/setupAdept.sh
-
 ## Quick start guide
-To install all dependencies, download all the repo's, and build the code on a fresh install of Ubuntu run the following script. 
+To install all dependencies, set up the catkin workspace and build the code on a fresh install of Ubuntu run the following script. 
 
 ./tools/installAll.sh
 
@@ -20,6 +16,20 @@ To install all dependencies, download all the repo's, and build the code on a fr
 Ros can be installed separately by running script
 
 ./tools/installRos.sh
+
+# Setup IP Addresses
+Create a file named "ros_ip_config.sh" with the following content:
+----------------------
+#!/usr/bin/env bash
+MY_IP=192.168.0.102
+MASTER_IP=192.168.0.106
+----------------------
+where MY_IP is your local IP address and MASTER_IP is the IP address of the car. The purpose of this file is to keep 
+the git repo clean from user-specific content. Do not commit this file!!
+
+The IP adress environment variables can then be set by sourcing:
+
+    source ADEPT/tools/setSource.sh
 
 ## Install ubuntu on usb flash drive
 Before getting started, you need these items.
