@@ -4,10 +4,12 @@
 * Ubuntu 16.04
 * ROS Kinetic
 * Git
-* ..?
+* CUDA 9
+* Stereolabs ZED SDK
+
 
 ## Install ROS
-Ros can be installed separately by running script
+Ros and other required software can be installed separately by running script
 
 ./tools/installRos.sh
 
