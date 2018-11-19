@@ -1,0 +1,6 @@
+[submodule "src/external/zed-ros-wrapper"]
+	path = src/external/zed-ros-wrapper
+	url = https://github.com/stereolabs/zed-ros-wrapper.git
+[submodule "src/external/i2c_imu"]
+	path = src/external/i2c_imu
+	url = https://github.com/jeskesen/i2c_imu.git
