@@ -1,4 +1,4 @@
-# ADEPT
+# Installation
 
 ## Requirements
 * Ubuntu 16.04
@@ -6,30 +6,31 @@
 * Git
 * ..?
 
-
-## Quick start guide
-To install all dependencies, set up the catkin workspace and build the code on a fresh install of Ubuntu run the following script. 
-
-./tools/installAll.sh
-
 ## Install ROS
 Ros can be installed separately by running script
 
 ./tools/installRos.sh
 
+## Setup ROS and build workspace
+
+./tools/setupROS.sh
+
 # Setup IP Addresses
 Create a file named "ros_ip_config.sh" with the following content:
-----------------------
+
+```bash
 #!/usr/bin/env bash
 MY_IP=192.168.0.102
 MASTER_IP=192.168.0.106
-----------------------
+```
 where MY_IP is your local IP address and MASTER_IP is the IP address of the car. The purpose of this file is to keep 
 the git repo clean from user-specific content. Do not commit this file!!
 
 The IP adress environment variables can then be set by sourcing:
 
-    source ADEPT/tools/setSource.sh
+```bash
+source ADEPT/tools/setSource.sh
+```
 
 ## Install ubuntu on usb flash drive
 Before getting started, you need these items.
@@ -65,13 +66,13 @@ To run the car server python code you need https://bottlepy.org/ Use Python 3.
 # LOCALIZATION
 
 ## Requirements
-
-	sudo apt-get install ros-kinetic-gmapping
-
+```bash
+sudo apt-get install ros-kinetic-gmapping
+```
 ## How to start SLAM
-
-	roslaunch rplidar_ros viewhectorSlam.launch
-
+```bash
+roslaunch rplidar_ros viewhectorSlam.launch
+```
 
 # PERCEPTION
 
