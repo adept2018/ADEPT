@@ -9,20 +9,3 @@ sudo apt-get install -y ros-kinetic-desktop-full
 sudo rosdep init
 rosdep update
 sudo apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential
-
-echo 'Installing Nvidia CUDA'
-mkdir tmp_cuda_install
-cd tmp_cuda_install
-wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
-chmod +x cuda_9.0.176_384.81_linux-run
-# We only want to install CUDA toolkit, no graphics driver so extract contents, then install
-./cuda_9.0.176_384.81_linux-run --extract=$PWD
-sudo ./cuda-linux.9.0.176-22781540.run
-cd ..
-rm -rf tmp_cuda_install
-
-echo 'Installing Stereolabs ZED SDK'
-wget https://download.stereolabs.com/zedsdk/2.7/ubuntu16_cuda9
-chmod +x ubuntu16_cuda9
-./ubuntu16_cuda9
-rm ubuntu16_cuda9

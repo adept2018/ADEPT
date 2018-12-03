@@ -6,6 +6,7 @@
 * Git
 * CUDA 9
 * Stereolabs ZED SDK
+* RTIMULib
 
 
 ## Install ROS
