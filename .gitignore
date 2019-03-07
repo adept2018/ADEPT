@@ -1,0 +1,10 @@
+Car Remote Control/Car Remote Control/bin
+Car Remote Control/Car Remote Control/obj
+.vscode
+.catkin_workspace
+src/CMakeLists.txt
+build/*
+devel/*
+*yolov2-tiny.weights
+*yolov2.weights
+tools/ros_ip_config.sh

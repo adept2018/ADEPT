@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="laserfilter">
+    <rosparam command="load" file="src/car_setup/laser_filter_def.yaml" />
+    <param name="target_frame" type="string" value="base_link" />
+  </node>
+</launch>

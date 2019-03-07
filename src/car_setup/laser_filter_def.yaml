@@ -1,0 +1,12 @@
+tf_message_filter_target_frame: base_link
+scan_filter_chain:
+  - name: angle1
+    type: LaserScanAngularBoundsFilter
+    params:
+      lower_angle: -3.14
+      upper_angle: -2.0
+  - name: range2
+    type: LaserScanAngularBoundsFilter
+    params:
+      lower_angle: 2.0
+      upper_angle: 3.14
