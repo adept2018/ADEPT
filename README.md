@@ -1,18 +1,32 @@
 # Installation
 
 ## Requirements
+The ADEPT software depends on the following components. Scripts are provided to help installing the dependencies
+
 * Ubuntu 16.04
 * ROS Kinetic
-* Git
 * CUDA 9
 * Stereolabs ZED SDK
 * RTIMULib
 
+## Clone the repository
+Clone the repository:
+```bash
+git clone https://github.com/adept2018/ADEPT.git
+```
+
+Some external dependencies are included as "git submodules". Do the following from the top ADEPT directory to get that code:
+```bash
+git submodule init
+git submodule update
+```
 
 ## Install ROS
-Ros and other required software can be installed separately by running script
+Ros and other required software can installed by running the following script:
 
-./tools/installRos.sh
+./tools/install_all.sh
+
+This script will run the separate install scripts located in the same directory.
 
 ## Setup ROS and build workspace
 

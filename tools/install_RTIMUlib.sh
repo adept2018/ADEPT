@@ -2,6 +2,7 @@
 
 # Get location of this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
 
 mkdir tmp && cd tmp
 git clone https://github.com/richardstechnotes/RTIMULib2.git
